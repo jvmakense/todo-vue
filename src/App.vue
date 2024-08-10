@@ -7,20 +7,7 @@ import ListaDeTarefa from './components/listaDeTarefa.vue';
     const estado = reactive({
         filtro: 'todas',
         tarefaTemp: '',
-        tarefas: [
-            {
-                titulo: 'Estudar ES6',
-                finalizada: false,
-            },
-            {
-                titulo: 'Estudar SASS',
-                finalizada: false,
-            },
-            {
-                titulo: 'Ir para academia',
-                finalizada: true,
-            }
-        ]
+        tarefas: [],
     })
 
     const getTarefasPendentes = () => {
@@ -58,6 +45,9 @@ import ListaDeTarefa from './components/listaDeTarefa.vue';
     <div class="container">
         <Cabecalho :tarefas-pendentes="getTarefasPendentes().length" />
         <Formulario :trocar-filtro="evento => estado.filtro = evento.target.value" :tarefa-temp="estado.tarefaTemp" :edita-tarefa-temp="evento => estado.tarefaTemp = evento.target.value" :cadastra-tarefa="cadastraTarefa" />
+        <div class="m-4" v-if="getTarefasFiltradas().length==0">
+            Você não tem tarefas.
+        </div>
         <ListaDeTarefa :tarefas="getTarefasFiltradas()" />
     </div>
 
